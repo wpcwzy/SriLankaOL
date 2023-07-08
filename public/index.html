@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <!-- 引入socket.io -->
+        <script src="/socket.io/socket.io.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <nav>
+            <span>Sri Lanka OL</span>
+
+            <input id="bmenub" type="checkbox" class="show">
+            <label for="bmenub" class="burger pseudo button">Menu</label>
+
+            <div class="menu">
+                <a href="#" class="pseudo button icon" style="visibility: hidden;">Admin</a>
+                <a href="#" class="pseudo button icon-picture">Chat</a>
+                <a href="#" class="pseudo button icon">Map</a>
+                <a href="#" class="pseudo button icon">Stat</a>
+                <a href="#" class="button icon">Set ID</a>
+            </div>
+        </nav>
+        <main class="flex two">
+            
+        </main>
+    </body>
+    <script>
+        window.socket = io();
+        socket.on('connect', () => {
+            window.socket.on('success', data => {
+                console.log(data)
+            })
+
+            window.socket.on('quit', (id) => {
+                console.log(`${id}连接断开`)
+            })
+        })
+    </script>
+</html>

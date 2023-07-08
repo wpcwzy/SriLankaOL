@@ -1,0 +1,38 @@
+.nav_chat{
+    margin:10px;
+    display:flex;
+    justify-content: center;
+}
+
+.nav_map{
+    margin:10px;
+    display:flex;
+    justify-content: center;
+}
+
+.nav_stat{
+    margin:10px;
+    display:flex;
+    justify-content: center;
+}
+
+.nav_userid{
+    margin-top:100%;
+    display: flex;
+}
+
+.chat{
+    background-color: #e6f8b7;
+}
+
+.map{
+    background-color: #e6f8b755;
+}
+
+.stat{
+    background-color: #e6f8b7;
+}
+
+.admin{
+    background-color: #e6f8b7ee;
+}
