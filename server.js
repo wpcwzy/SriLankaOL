@@ -1,16 +1,48 @@
-const fs = require('fs');
 var express = require('express');
+const { disconnect } = require('process');
 var app = express();
-var http = require('http').Server(app);
+var http = require('http').createServer(app);
 var io = require("socket.io")(http);
-// 路由为/默认www静态文件夹
+
 app.use('/', express.static(__dirname + '/public'));
 
+var playerList={}
+var msgList=new Array()
+
+class ChatHistory{
+    constructor(sideA,sideB){
+        this.sideA=sideA
+        this.sideB=sideB
+    }
+    chat=new Array()
+}
+
 io.on('connection', socket => {
-    socket.emit('success', '连接到服务器')
+    socket.emit('success', '连接服务器成功')
+
+    socket.on('login',data => {
+        console.log(data+'加入游戏成功')
+        playerList[data]=socket.id
+    })
+
+    socket.on('send_chat',data => {
+        
+    })
+
+    socket.on('query_online',() => {
+        console.log('query_online')
+        console.log(playerList)
+        socket.emit('playerlist',{playerList})
+    })
 
     socket.on('disconnect', () => {
-        io.emit('quit', socket.id)
+        console.log(socket.id)
+        for(var player in playerList)
+        {
+            if(playerList[player]==socket.id)
+                delete playerList[player]
+        }
+        console.log(playerList)
     })
 })
 

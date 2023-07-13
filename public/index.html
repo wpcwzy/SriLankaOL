@@ -5,6 +5,7 @@
         <title>Title</title>
         <!-- 引入socket.io -->
         <script src="/socket.io/socket.io.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
         <script src="index.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
         <link rel="stylesheet" href="index.css">
@@ -21,16 +22,12 @@
                     <a href="#" class="pseudo button">Chat</a>
                     <a href="#" class="pseudo button">Map</a>
                     <a href="#" class="pseudo button">Stat</a>
-                    <a href="#" class="button">Set ID</a>
+                    <a href="#" class="button" id="setid_btn" onclick="click_setid()">Set ID</a>
                 </div>
         </nav>
         <main style="position:absolute;left:0;right:0;top:50px;bottom:0;">
             <div class="flex two chat" style="visibility: ;">
                 <div class="chat_user_list">
-                    <em>Online Players (Click to chat):</em>
-                    <br><a class="pseudo button">wpcwzy</a>
-                    <br><a class="pseudo button">Glamorgan</a>
-                    <br><a class="pseudo button">123</a>
                 </div>
                 <div class="chat_main">
                     <pre class="chat_history" style="height:80%;overflow-y: auto;white-space:normal">
@@ -65,16 +62,4 @@
             </div>
         </main>
     </body>
-    <script>
-        window.socket = io();
-        socket.on('connect', () => {
-            window.socket.on('success', data => {
-                console.log(data)
-            })
-
-            window.socket.on('quit', (id) => {
-                console.log(`${id}连接断开`)
-            })
-        })
-    </script>
 </html>
