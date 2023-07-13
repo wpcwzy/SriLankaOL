@@ -5,26 +5,64 @@
         <title>Title</title>
         <!-- 引入socket.io -->
         <script src="/socket.io/socket.io.js"></script>
+        <script src="index.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
         <link rel="stylesheet" href="index.css">
     </head>
     <body>
         <nav>
-            <span>Sri Lanka OL</span>
-
-            <input id="bmenub" type="checkbox" class="show">
-            <label for="bmenub" class="burger pseudo button">Menu</label>
-
-            <div class="menu">
-                <a href="#" class="pseudo button icon" style="visibility: hidden;">Admin</a>
-                <a href="#" class="pseudo button icon-picture">Chat</a>
-                <a href="#" class="pseudo button icon">Map</a>
-                <a href="#" class="pseudo button icon">Stat</a>
-                <a href="#" class="button icon">Set ID</a>
-            </div>
+                <span style="position:relative;top:10px;">Sri Lanka OL</span>
+    
+                <input id="bmenub" type="checkbox" class="show">
+                <label for="bmenub" class="burger pseudo button">Menu</label>
+    
+                <div class="menu">
+                    <a href="#" class="pseudo button" style="visibility: hidden;">Admin</a>
+                    <a href="#" class="pseudo button">Chat</a>
+                    <a href="#" class="pseudo button">Map</a>
+                    <a href="#" class="pseudo button">Stat</a>
+                    <a href="#" class="button">Set ID</a>
+                </div>
         </nav>
-        <main class="flex two">
-            
+        <main style="position:absolute;left:0;right:0;top:50px;bottom:0;">
+            <div class="flex two chat" style="visibility: ;">
+                <div class="chat_user_list">
+                    <em>Online Players (Click to chat):</em>
+                    <br><a class="pseudo button">wpcwzy</a>
+                    <br><a class="pseudo button">Glamorgan</a>
+                    <br><a class="pseudo button">123</a>
+                </div>
+                <div class="chat_main">
+                    <pre class="chat_history" style="height:80%;overflow-y: auto;white-space:normal">
+                        <span>Glmg:123</span><br>
+                        <span>wpcwzy:123</span><br>
+                        <span>wpcwzy:123</span><br>
+                        <span>wpcwzy:123</span><br>
+                        <span>wpcwzy:123</span><br>
+                        <span>wpcwzy:123</span><br>
+                        <span>wpcwzy:123</span><br>
+                        <span>wpcwzy:123</span><br>
+                        <span>wpcwzy:123</span><br>
+                    </pre>
+                    <div class="chat_send_area">
+                        <input>
+                        <button onclick="click_send()">Send</button>
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <div class="map" style="visibility: hidden;;">
+                    123
+            </div>
+            <div class="stat" style="visibility: hidden;">
+                    123
+            </div>
+            <div class="admin" style="visibility: hidden">
+                    <button>A</button>
+                    <button>B</button>
+                    <button>C</button>
+                    <button>D</button>
+            </div>
         </main>
     </body>
     <script>
