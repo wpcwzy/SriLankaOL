@@ -7,14 +7,24 @@ var io = require("socket.io")(http);
 app.use('/', express.static(__dirname + '/public'));
 
 var playerList={}
-var msgList=new Array()
+var msgList={}
 
-class ChatHistory{
-    constructor(sideA,sideB){
-        this.sideA=sideA
-        this.sideB=sideB
-    }
-    chat=new Array()
+const adminList=['glamorgan','wpcwzy']
+function generatePrivateChatId(str1,str2)
+{
+    if(str1<=str2)
+        orderedStr=str1+" "+str2
+    else
+        orderedStr=str2+" "+str1
+    return orderedStr
+}
+
+function reverseQuery(socketId)
+{
+    for(var player in playerList)
+        if(playerList[player]==socketId)
+            return playerList[player] 
+    return null
 }
 
 io.on('connection', socket => {
@@ -23,10 +33,19 @@ io.on('connection', socket => {
     socket.on('login',data => {
         console.log(data+'加入游戏成功')
         playerList[data]=socket.id
+        io.emit('refresh')
     })
 
-    socket.on('send_chat',data => {
-        
+    socket.on('send_msg',data => { // data包含sender,target,content,其中sender和target都是玩家id，content内容为：wpcwzy:xxx
+        socket.to(playerList[data.target]).emit('msg_recv',data.content)
+        // 判断chatid是否有过聊天记录
+        console.log(generatePrivateChatId(data.sender,data.target))
+        if(!msgList[generatePrivateChatId(data.sender,data.target)])
+        {
+            msgList[generatePrivateChatId(data.sender,data.target)]=new Array()
+        }
+        msgList[generatePrivateChatId(data.sender,data.target)].push(data.content)
+        console.log(msgList[generatePrivateChatId(data.sender,data.target)])
     })
 
     socket.on('query_online',() => {
@@ -37,11 +56,7 @@ io.on('connection', socket => {
 
     socket.on('disconnect', () => {
         console.log(socket.id)
-        for(var player in playerList)
-        {
-            if(playerList[player]==socket.id)
-                delete playerList[player]
-        }
+        delete reverseQuery(socket.id)
         console.log(playerList)
     })
 })

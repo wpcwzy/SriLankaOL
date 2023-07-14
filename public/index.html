@@ -18,43 +18,34 @@
                 <label for="bmenub" class="burger pseudo button">Menu</label>
     
                 <div class="menu">
-                    <a href="#" class="pseudo button" style="visibility: hidden;">Admin</a>
-                    <a href="#" class="pseudo button">Chat</a>
-                    <a href="#" class="pseudo button">Map</a>
-                    <a href="#" class="pseudo button">Stat</a>
+                    <a href="#" class="pseudo button" id="admin_btn" onclick="click_admin()">Admin</a>
+                    <a href="#" class="pseudo button" onclick="click_chat()">Chat</a>
+                    <a href="#" class="pseudo button" onclick="click_map()">Map</a>
+                    <a href="#" class="pseudo button" onclick="click_stat()">Stat</a>
                     <a href="#" class="button" id="setid_btn" onclick="click_setid()">Set ID</a>
                 </div>
         </nav>
         <main style="position:absolute;left:0;right:0;top:50px;bottom:0;">
-            <div class="flex two chat" style="visibility: ;">
+            <div class="flex two chat">
                 <div class="chat_user_list">
                 </div>
                 <div class="chat_main">
                     <pre class="chat_history" style="height:80%;overflow-y: auto;white-space:normal">
-                        <span>Glmg:123</span><br>
-                        <span>wpcwzy:123</span><br>
-                        <span>wpcwzy:123</span><br>
-                        <span>wpcwzy:123</span><br>
-                        <span>wpcwzy:123</span><br>
-                        <span>wpcwzy:123</span><br>
-                        <span>wpcwzy:123</span><br>
-                        <span>wpcwzy:123</span><br>
-                        <span>wpcwzy:123</span><br>
                     </pre>
                     <div class="chat_send_area">
-                        <input>
-                        <button onclick="click_send()">Send</button>
+                        <input class="chat_content">
+                        <button onclick="click_sendmsg()">Send</button>
                     </span>
                     </div>
                 </div>
             </div>
-            <div class="map" style="visibility: hidden;;">
+            <div class="map">
                     123
             </div>
-            <div class="stat" style="visibility: hidden;">
+            <div class="stat">
                     123
             </div>
-            <div class="admin" style="visibility: hidden">
+            <div class="admin">
                     <button>A</button>
                     <button>B</button>
                     <button>C</button>
