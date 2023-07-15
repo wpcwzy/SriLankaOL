@@ -10,32 +10,32 @@ $(document).ready(function () {
 });
 
 window.socket = io();
-        socket.on('connect', () => {
-            window.socket.on('success', data => {
-                alert(data)
-                updateData()
-            })
+socket.on('connect', () => {
+    window.socket.on('success', data => {
+        alert(data)
+        updateData()
+    })
 
-            window.socket.on('refresh',() => {
-                updateData()
-            })
-            window.socket.on('playerlist',data => {
-                data=data.playerList
-                console.log(data)
-                $(".chat_user_list").empty()
-                $(".chat_user_list").append("<em>在线玩家（点击昵称聊天）:</em><br>")
-                for(var element in data)
-                {
-                    $(".chat_user_list").append(`<a class=\"pseudo button username\">${element}</a><br>`)
-                }
-                $(".username").click(selectChatTarget);
-            })
+    window.socket.on('refresh',() => {
+        updateData()
+    })
+    window.socket.on('playerlist',data => {
+        data=data.playerList
+        console.log(data)
+        $(".chat_user_list").empty()
+        $(".chat_user_list").append("<em>在线玩家（点击昵称聊天）:</em><br>")
+        for(var element in data)
+        {
+            $(".chat_user_list").append(`<a class=\"pseudo button username\">${element}</a><br>`)
+        }
+        $(".username").click(selectChatTarget);
+    })
 
-            window.socket.on('msg_recv',data => {
-                console.log('recv_msg:'+data)
-                $(".chat_history").append(`<span>${data}</span><br>`)
-            })
-        })
+    window.socket.on('msg_recv',data => {
+        console.log('recv_msg:'+data)
+        $(".chat_history").append(`<span>${data}</span><br>`)
+    })
+})
 
 function selectChatTarget()
 {
