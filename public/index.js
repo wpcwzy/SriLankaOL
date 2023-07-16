@@ -1,5 +1,5 @@
 userId=null
-chatTargetId=null
+const adminList=['glamorgan','wpcwzy']
 
 $(document).ready(function () {
     $("#admin_btn").hide()
@@ -23,12 +23,9 @@ socket.on('connect', () => {
         data=data.playerList
         console.log(data)
         $(".chat_user_list").empty()
-        $(".chat_user_list").append("<em>在线玩家（点击昵称聊天）:</em><br>")
+        $(".chat_user_list").append("<em>在线玩家</em><br>")
         for(var element in data)
-        {
-            $(".chat_user_list").append(`<a class=\"pseudo button username\">${element}</a><br>`)
-        }
-        $(".username").click(selectChatTarget);
+            $(".chat_user_list").append(`<span>${element}</span><br>`)
     })
 
     window.socket.on('msg_recv',data => {
@@ -36,14 +33,6 @@ socket.on('connect', () => {
         $(".chat_history").append(`<span>${data}</span><br>`)
     })
 })
-
-function selectChatTarget()
-{
-    const button=$(this)
-    alert("和"+button.text()+"聊天")
-    chatTargetId=button.text()
-    window.socket.emit('get_chat_history',{sender:userId,target:chatTargetId})
-}
 
 function updateData()
 {
@@ -64,11 +53,11 @@ function click_setid()
     {
         userId=prompt("请输入玩家ID，如果中途掉线，则输入掉线前的ID以继续游戏")
     }
-    if(userId=='glamorgan')
+    if(adminList.includes(userId))
         $("#admin_btn").show()
     window.socket.emit('login',userId)
-    $("#setid_btn").attr("onclick","null")
-    $("#setid_btn").attr("disabled","disabled")
+    $("#setid_btn").attr("onclick","null") //禁用点击事件
+    $("#setid_btn").attr("disabled","disabled") //样式改为禁用状态
     updateData()
 }
 
@@ -82,6 +71,8 @@ function click_admin()
 
 function click_chat()
 {
+    updateData()
+    loadChatHistory()
     $(".chat").show()
     $(".map").hide()
     $(".stat").hide()

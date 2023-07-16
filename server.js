@@ -10,14 +10,6 @@ var playerList={}
 var msgList={}
 
 const adminList=['glamorgan','wpcwzy']
-function generatePrivateChatId(str1,str2)
-{
-    if(str1<=str2)
-        orderedStr=str1+" "+str2
-    else
-        orderedStr=str2+" "+str1
-    return orderedStr
-}
 
 function reverseQuery(socketId)
 {
@@ -36,15 +28,13 @@ io.on('connection', socket => {
         io.emit('refresh')
     })
 
-    socket.on('send_msg',data => { // data包含sender,target,content,其中sender和target都是玩家id，content内容为：wpcwzy:xxx
-        socket.to(playerList[data.target]).emit('msg_recv',data.content)
+    socket.on('send_msg',data => { // data包含sender,content,其中sender是玩家id，content内容为：wpcwzy:xxx
+        for(var admin in adminList)
+            socket.to(playerList[admin]).emit('msg_recv',data.content)
         // 判断chatid是否有过聊天记录
-        console.log(generatePrivateChatId(data.sender,data.target))
-        if(!msgList[generatePrivateChatId(data.sender,data.target)])
-        {
-            msgList[generatePrivateChatId(data.sender,data.target)]=new Array()
-        }
-        msgList[generatePrivateChatId(data.sender,data.target)].push(data.content)
+        if(!msgList[data.sender])
+            msgList[data.sender]=new Array()
+        msgList[data.sender].push(data.content)
         console.log(msgList[generatePrivateChatId(data.sender,data.target)])
     })
 
