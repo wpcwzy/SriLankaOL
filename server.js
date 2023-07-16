@@ -30,12 +30,12 @@ io.on('connection', socket => {
 
     socket.on('send_msg',data => { // data包含sender,content,其中sender是玩家id，content内容为：wpcwzy:xxx
         for(var admin in adminList)
-            socket.to(playerList[admin]).emit('msg_recv',data.content)
+            socket.to(playerList[adminList[admin]]).emit('msg_recv',data.content)
         // 判断chatid是否有过聊天记录
         if(!msgList[data.sender])
             msgList[data.sender]=new Array()
         msgList[data.sender].push(data.content)
-        console.log(msgList[generatePrivateChatId(data.sender,data.target)])
+        console.log(msgList[data.sender])
     })
 
     socket.on('query_online',() => {
@@ -48,6 +48,10 @@ io.on('connection', socket => {
         console.log(socket.id)
         delete reverseQuery(socket.id)
         console.log(playerList)
+    })
+
+    socket.on('load_chat_history',(data) => {
+        socket.emit('chat_history',msgList[data])
     })
 })
 
